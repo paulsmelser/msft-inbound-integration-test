@@ -28,9 +28,9 @@ class SubscriptionOrderHappyPathScenario(port: Int, validate: (scenario: Scenari
         scenario = Scenario(
                 restResource,
                 Payload("0b50b2d5-30d2-4e6b-b3f9-2bc105e878b8", UUID.randomUUID().toString()),
-                { scenario -> setMocks(scenario) },
+                { scenario -> mockFor(scenario) },
                 { scenario -> preconditions(scenario) },
-                { scenario ->  ready(scenario) },
+                { scenario ->  executionComplete(scenario) },
                 validate,
                 timeout)
 
@@ -43,7 +43,7 @@ class SubscriptionOrderHappyPathScenario(port: Int, validate: (scenario: Scenari
         }
     }
 
-    private fun setMocks(scenario: Scenario<Payload>) {
+    private fun mockFor(scenario: Scenario<Payload>) {
         mockMicrosoftOAuthEndpoints()
         mockGetCustomer(scenario.payload.customerId)
         mockOrderCreationWithSuccessfulProvisioning(scenario.payload.customerId)
@@ -79,40 +79,31 @@ class SubscriptionOrderHappyPathScenario(port: Int, validate: (scenario: Scenari
     }
 
     private fun preconditions(scenario: Scenario<Payload>): Boolean {
-        val start = System.currentTimeMillis()
-        while(true){
             return try {
                 this.restResource.request()
                         .path("api/v1/offers/91FD106F-4B2C-4938-95AC-F54F74E9A239")
                         .queryParam("resellerDomain", "csptip58s.onmicrosoft.com")
                         .get(String::class.java)
-                Thread.sleep(5000)
                 true
             } catch (e: Exception) {
-                if ((System.currentTimeMillis() - start) > 40000) throw e
                 false
             }
-        }
     }
 
-    private fun ready(scenario: Scenario<Payload>) : Boolean {
-        val start = System.currentTimeMillis()
-        while(true){
+    private fun executionComplete(scenario: Scenario<Payload>) : Boolean {
             return try {
                 val entity = this.restResource.request()
                         .path("api/v1/events/isvevents/bytoken/${scenario.payload.eventToken}")
                         .get(object : ParameterizedTypeReference<List<ISVEvent>>() {})
-                if (entity.body.any { it.eventType.equals("SUBSCRIPTION_ORDER_SUCCESSFUL_EVENT", true) }) return true
-                Thread.sleep(5000)
-                false
+                entity.body.any { it.eventType == "SUBSCRIPTION_ORDER_SUCCESSFUL_EVENT" }
             } catch (e: Exception) {
-                if ((System.currentTimeMillis() - start) > 40000) throw e
                 false
             }
-        }
     }
 
-    data class Payload(val customerId: String, val eventToken: String)
+    data class Payload(
+            val customerId: String,
+            val eventToken: String)
 
     companion object {
         private const val ID: String = "S001"

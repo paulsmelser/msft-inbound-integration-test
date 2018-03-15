@@ -8,7 +8,7 @@ open class Scenario <T>(
         val payload: T,
         private val mocks: (scenario: Scenario<T>) -> Unit,
         private val preconditions: (scenario: Scenario<T>) -> Boolean,
-        private val ready: (scenario: Scenario<T>) -> Boolean,
+        private val completed: (scenario: Scenario<T>) -> Boolean,
         private val validate: (scenario: Scenario<T>) -> Unit,
         private val timeout: Long) {
 
@@ -23,7 +23,7 @@ open class Scenario <T>(
 
         onExecute.invoke(this)
         val startTime = System.currentTimeMillis()
-        while(!ready.invoke(this)) {
+        while(!completed.invoke(this)) {
             Thread.sleep(3000)
             if ((System.currentTimeMillis() - startTime) > timeout) throw TimeoutException()
         }
