@@ -1,0 +1,20 @@
+{
+  "usageLocation": "US",
+  "id": "4b10bf41-ab11-40e3-8c53-cd67849b50de",
+  "userPrincipalName": "pi123234@domain.onmicrosoft.com",
+  "firstName": "First",
+  "lastName": "Last",
+  "displayName": "User name",
+  "immutableId": "Some unique ID",
+  "passwordProfile": {
+	"forceChangePassword": true,
+	"password": "abCD123*"
+  },
+  "lastDirectorySyncTime": null,
+  "userDomainType": "none",
+  "state": "active",
+  "softDeletionTime": null,
+  "attributes": {
+	"objectType": "CustomerUser"
+  }
+}

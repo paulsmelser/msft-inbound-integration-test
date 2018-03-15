@@ -1,22 +1,26 @@
 {
-  "Id": null,
-  "ReferenceCustomerId": "4d3cf487-70f4-4e1e-9ff1-b2bfce8d9f04",
-  "BillingCycle": "unknown",
-  "LineItems": [{
-	"LineItemNumber": 0,
-	"OfferId": "84A03D81-6B37-4D66-8D4A-FAEA24541538",
-	"SubscriptionId": null,
-	"ParentSubscriptionId": null,
-	"FriendlyName": "new offer purchase",
-	"Quantity": 5,
-	"PartnerIdOnRecord": null,
-	"Attributes": {
-	  "ObjectType": "OrderLineItem"
+  "id": null,
+  "referenceCustomerId": "0b50b2d5-30d2-4e6b-b3f9-2bc105e878b8",
+  "billingCycle": "monthly",
+  "lineItems": [
+	{
+	  "lineItemNumber": 0,
+	  "offerId": "91FD106F-4B2C-4938-95AC-F54F74E9A239",
+	  "subscriptionId": "84A03D81-6B37-4D66-8D4A-FAEA24541538",
+	  "friendlyName": "new offer purchase",
+	  "quantity": 5
 	}
-  }
   ],
-  "CreationDate": null,
-  "Attributes": {
-	"ObjectType": "Order"
+  "creationDate": "2017-03-30T10:43:07.157-07:00",
+  "links": {
+	"self": {
+	  "uri": "/customers/0b50b2d5-30d2-4e6b-b3f9-2bc105e878b8/orders/074bd849-9106-405c-9923-fa061839d487",
+	  "method": "GET",
+	  "headers": []
+	}
+  },
+  "attributes": {
+	"etag": "eyJpZCI6IjA3NGJkODQ5LTkxMDYtNDA1Yy05OTIzLWZhMDYxODM5ZDQ4NyIsInZlcnNpb24iOjF9",
+	"objectType": "Order"
   }
 }

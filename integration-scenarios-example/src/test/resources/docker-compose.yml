@@ -1,19 +1,46 @@
-version: '2'
+version: '3'
 services:
   msft-inbound-connector:
-    image: docker.appdirect.tools/microsoft/msft-inbound-connector:0.1.36
+    image: docker.appdirect.tools/microsoft/msft-inbound-connector:latest
     ports:
       - "8888:8888"
     depends_on:
-      - "db"
-  db:
-    image: mysql
-    ports:
-     - "3306:3306"
+      - "appdirectdb"
+      - "rabbitmq"
+    networks:
+      - local-msft-test
     environment:
-      MYSQL_ROOT_PASSWORD: password
+      SPRING_DATASOURCE_URL: "jdbc:mysql://appdirectdb:3306/ad_microsoft_connector?createDatabaseIfNotExist=true&serverTimezone=UTC"
+      SPRING_PROFILES_ACTIVE: test
+      RABBITMQ_URI: "amqp://rabbitmq:5672"
+  appdirectdb:
+    image: docker.appdirect.tools/appdirect/appdirectdb:latest
+    command: mysqld --sql_mode=""
+    ports:
+      - "3306:3306"
+    networks:
+      - local-msft-test
   rabbitmq:
-      image: rabbitmq:3.5.7-management
-#    ports:
-#      - "5672:5673"
-#      - "15672:15673"
+    image: rabbitmq:3.5.7-management
+    networks:
+      - local-msft-test
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+  rms:
+    image: docker.appdirect.tools/rms/rms:latest
+    ports:
+      - "5000:5000"
+    networks:
+      - local-msft-test
+    depends_on:
+      - "rabbitmq"
+  rabbit-config:
+    image: docker.appdirect.tools/rms/rabbitmq-config:latest
+    networks:
+      - local-msft-test
+    depends_on:
+      - "rms"
+networks:
+  local-msft-test:
+    driver: bridge

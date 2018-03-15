@@ -1,0 +1,75 @@
+{
+  "id": "0b50b2d5-30d2-4e6b-b3f9-2bc105e878b8",
+  "commerceId": "803d768c-8a9f-44b8-b279-7c7e4afb9bb9",
+  "companyProfile": {
+	"tenantId": "0b50b2d5-30d2-4e6b-b3f9-2bc105e878b8",
+	"domain": "dnd1520272959592.onmicrosoft.com",
+	"companyName": "Yopmail",
+	"address": {
+	  "country": "US",
+	  "region": "MA",
+	  "city": "Somerville",
+	  "state": "MA",
+	  "addressLine1": "50 Grove St",
+	  "postalCode": "02144",
+	  "phoneNumber": "4159839822"
+	},
+	"email": "4orchard030518@yopmail.com",
+	"links": {
+	  "self": {
+		"uri": "/customers/6d0ec121-622c-4ace-b586-36e399b09305/profiles/company",
+		"method": "GET",
+		"headers": []
+	  }
+	},
+	"attributes": {
+	  "objectType": "CustomerCompanyProfile"
+	}
+  },
+  "billingProfile": {
+	"id": "e3fb1492-f956-55d2-c1e2-941010bdedae",
+	"firstName": "t",
+	"lastName": "test",
+	"email": "4orchard030518@yopmail.com",
+	"culture": "en-US",
+	"language": "en",
+	"companyName": "Yopmail",
+	"defaultAddress": {
+	  "country": "US",
+	  "city": "Somerville",
+	  "state": "MA",
+	  "addressLine1": "50 Grove St",
+	  "addressLine2": "",
+	  "postalCode": "02144",
+	  "firstName": "t",
+	  "lastName": "test",
+	  "phoneNumber": "4159839822"
+	},
+	"links": {
+	  "self": {
+		"uri": "/customers/6d0ec121-622c-4ace-b586-36e399b09305/profiles/billing",
+		"method": "GET",
+		"headers": []
+	  }
+	},
+	"attributes": {
+	  "etag": "5310694034973817044",
+	  "objectType": "CustomerBillingProfile"
+	}
+  },
+  "relationshipToPartner": "reseller",
+  "allowDelegatedAccess": true,
+  "customDomains": [
+	"dnd1520272959592.onmicrosoft.com"
+  ],
+  "links": {
+	"self": {
+	  "uri": "/customers/6d0ec121-622c-4ace-b586-36e399b09305",
+	  "method": "GET",
+	  "headers": []
+	}
+  },
+  "attributes": {
+	"objectType": "Customer"
+  }
+}
