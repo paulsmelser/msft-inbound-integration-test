@@ -28,23 +28,24 @@ subprojects {
 	repositories {
 		mavenCentral()
 		jcenter()
+		mavenLocal()
 	}
 
 	dependencies {
 		compile (
-				"org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version",
+				[group: 'org.jetbrains.kotlin',					name: 'kotlin-stdlib-jdk8',						version: "$kotlin_version"],
 				[group: "com.github.tomakehurst",				name: "wiremock",								version: "2.4.1"],
 				[group: "io.github.springsocialmicrosoft",		name: "spring-social-microsoft-partnercenter",	version: "6.2.3"],
 				[group: 'org.springframework.security.oauth', 	name: 'spring-security-oauth', 					version: '2.2.1.RELEASE'],
 				[group: "com.fasterxml.jackson.datatype",		name: "jackson-datatype-jsr310",				version: "2.9.4"],
 				[group: "com.fasterxml.jackson.core",			name: "jackson-databind", 						version: "2.9.4"],
-				[group: 'org.springframework', 					name: 'spring-web', 							version: '4.3.8.RELEASE']
+				[group: 'org.springframework', 					name: 'spring-web', 							version: '4.3.8.RELEASE'],
+				[group: 'org.apache.activemq.tooling', 			name: 'activemq-junit', 						version: '5.15.3'],
+				[group: 'com.fasterxml.jackson.dataformat',		name: 'jackson-dataformat-yaml',				version: '2.9.4']
 		)
 		runtime (
-				[
-						[group: "com.fasterxml.jackson.datatype",	name: "jackson-datatype-jdk8",	version: "2.9.4"],
-						[group: "com.fasterxml.jackson.module",		name: "jackson-module-kotlin",	version: "2.9.4.1"]
-				]
+				[group: "com.fasterxml.jackson.datatype",	name: "jackson-datatype-jdk8",	version: "2.9.4"],
+				[group: "com.fasterxml.jackson.module",		name: "jackson-module-kotlin",	version: "2.9.4.1"]
 		)
 
 		testCompile(
@@ -53,8 +54,6 @@ subprojects {
 				[ group: 'ch.qos.logback', 					name: 'logback-classic', 		version: '1.1.8'],
 				[ group: 'org.mockito',						name: 'mockito-core',			version: '2.7.22'],
 				[ group: 'commons-io', 						name: 'commons-io', 			version: '2.4'],
-				[ group: 'org.testcontainers', 				name: 'testcontainers', 		version: '1.6.0'],
-				[ group: 'org.testcontainers', 				name: 'docker-compose', 		version: '0.9.9'],
 				[ group: 'com.meltwater.docker',			name: 'kotlin-compose',			version: '1.2.1']
 		)
 	}
@@ -65,6 +64,3 @@ subprojects {
 		kotlinOptions.jvmTarget = "1.8"
 	}
 }
-
-
-

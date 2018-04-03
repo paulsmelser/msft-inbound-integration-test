@@ -1,6 +1,7 @@
-package com.appdirect.integration.mock
+package com.appdirect.integration.scenario
 
 import com.appdirect.integration.file.Resource.Companion.parseFile
+import com.appdirect.jackson.json.Json.toJson
 import com.github.tomakehurst.wiremock.client.WireMock.aResponse
 import com.github.tomakehurst.wiremock.client.WireMock.get
 import com.github.tomakehurst.wiremock.client.WireMock.givenThat
@@ -12,19 +13,22 @@ import org.apache.http.entity.ContentType
 
 object ISVEventMocks {
 
-    fun mockEventEndpoints(scenarioId: String, eventToken: String) {
-        mockFetchEvent(scenarioId, eventToken)
-        mockResolveEvent(scenarioId, eventToken)
+    fun mockSubscriptionOrderEventEndpoints(eventToken: String) {
+        mockSubscriptionOrderFetch(eventToken)
+        mockResolveEvent(eventToken)
     }
-    fun mockFetchEvent(scenarioId: String, eventToken: String) {
+    private fun mockSubscriptionOrderFetch(eventToken: String) {
+        val event = parseFile("data/isv-event/subscription_order.json").getAsObjectNode()
+        event.put("id", eventToken)
+
         givenThat(get(urlPathEqualTo("/isv/event/$eventToken"))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withHeader(HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.toString())
-                        .withBody(parseFile("data/isv-event/$scenarioId/get.json").flattenedText)))
+                        .withBody(parseFile(toJson(event)).flattenedText)))
     }
 
-    fun mockResolveEvent(scenarioId: String, eventToken: String) {
+    private fun mockResolveEvent(eventToken: String) {
         givenThat(post(urlEqualTo("/api/integration/v1/events/$eventToken/result")))
     }
 }

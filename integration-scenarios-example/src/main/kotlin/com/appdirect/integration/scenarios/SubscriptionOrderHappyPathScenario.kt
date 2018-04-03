@@ -2,15 +2,15 @@ package com.appdirect.integration.scenarios
 
 import com.appdirect.integration.file.Resource.Companion.parseFile
 import com.appdirect.integration.http.RestResourceFactory.createOAuthResource
-import com.appdirect.integration.mock.ISVEventMocks.mockEventEndpoints
-import com.appdirect.integration.mock.microsoft.MicrosoftOAuthMocks.mockMicrosoftOAuthEndpoints
-import com.appdirect.integration.mock.OfferMocks.mockOffersForMarket
-import com.appdirect.integration.mock.Scenario
-import com.appdirect.integration.mock.ScenarioRunner
-import com.appdirect.integration.mock.microsoft.Customers.mockGetCustomer
-import com.appdirect.integration.mock.microsoft.Orders.mockOrderCreationWithSuccessfulProvisioning
-import com.appdirect.integration.mock.microsoft.Users.mockAssignUser
-import com.appdirect.integration.mock.microsoft.Users.mockCreateUser
+import com.appdirect.integration.scenario.ISVEventMocks.mockSubscriptionOrderEventEndpoints
+import com.appdirect.integration.scenario.OfferMocks.mockOffersForMarket
+import com.appdirect.integration.scenario.Scenario
+import com.appdirect.integration.scenario.ScenarioRunner
+import com.appdirect.integration.scenario.microsoft.Customers.mockGetCustomer
+import com.appdirect.integration.scenario.microsoft.MicrosoftOAuthMocks.mockMicrosoftOAuthEndpoints
+import com.appdirect.integration.scenario.microsoft.Orders.mockOrderCreationWithSuccessfulProvisioning
+import com.appdirect.integration.scenario.microsoft.Users.mockAssignUser
+import com.appdirect.integration.scenario.microsoft.Users.mockCreateUser
 import com.github.tomakehurst.wiremock.client.WireMock.aResponse
 import com.github.tomakehurst.wiremock.client.WireMock.equalToJson
 import com.github.tomakehurst.wiremock.client.WireMock.givenThat
@@ -75,7 +75,7 @@ class SubscriptionOrderHappyPathScenario(port: Int, validate: (scenario: Scenari
     }
 
     private fun mockEventUrl(eventToken: String) {
-        mockEventEndpoints(ID, eventToken)
+        mockSubscriptionOrderEventEndpoints(eventToken)
     }
 
     private fun preconditions(scenario: Scenario<Payload>): Boolean {
@@ -104,8 +104,4 @@ class SubscriptionOrderHappyPathScenario(port: Int, validate: (scenario: Scenari
     data class Payload(
             val customerId: String,
             val eventToken: String)
-
-    companion object {
-        private const val ID: String = "S001"
-    }
 }

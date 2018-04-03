@@ -1,4 +1,4 @@
-package com.appdirect.integration.mock.microsoft
+package com.appdirect.integration.scenario.microsoft
 
 import com.appdirect.integration.file.Resource.Companion.parseFile
 import com.github.tomakehurst.wiremock.client.WireMock.aResponse
@@ -14,7 +14,7 @@ object MicrosoftOAuthMocks {
         oauthLoginMock()
         generateTokenMock()
     }
-    fun oauthLoginMock() {
+    private fun oauthLoginMock() {
         givenThat(post(urlMatching(".*.onmicrosoft.com/oauth2/token"))
                 .willReturn(aResponse()
                         .withHeaders(HttpHeaders(
@@ -25,7 +25,7 @@ object MicrosoftOAuthMocks {
                         .withBody(parseFile("data/oauth/token.json").flattenedText)))
     }
 
-    fun generateTokenMock() {
+    private fun generateTokenMock() {
         givenThat(post(urlEqualTo("/generatetoken"))
                 .willReturn(aResponse()
                         .withHeader("Content-Type", "application/json;charset=UTF-8")

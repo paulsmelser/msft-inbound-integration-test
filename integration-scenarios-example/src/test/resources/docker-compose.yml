@@ -27,20 +27,6 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
-  rms:
-    image: docker.appdirect.tools/rms/rms:latest
-    ports:
-      - "5000:5000"
-    networks:
-      - local-msft-test
-    depends_on:
-      - "rabbitmq"
-  rabbit-config:
-    image: docker.appdirect.tools/rms/rabbitmq-config:latest
-    networks:
-      - local-msft-test
-    depends_on:
-      - "rms"
 networks:
   local-msft-test:
     driver: bridge

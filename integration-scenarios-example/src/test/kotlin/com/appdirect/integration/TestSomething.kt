@@ -7,6 +7,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
 import com.github.tomakehurst.wiremock.client.WireMock.verify
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration.options
 import com.github.tomakehurst.wiremock.junit.WireMockRule
+import com.meltwater.docker.compose.DockerCompose
 import org.junit.AfterClass
 import org.junit.BeforeClass
 import org.junit.Rule
@@ -34,21 +35,22 @@ class TestSomething {
     }
 
     companion object {
-        //        private var container: DockerCompose = DockerCompose("docker-compose.yml", "msft", HashMap())
+        private lateinit var container: DockerCompose
         const val MSFT_PORT = 8899
 
         @BeforeClass
         @JvmStatic
         fun init() {
-//            container.build()
-//            container.up()
+            container = DockerCompose("docker-compose.yml", "msft", HashMap())
+            container.build()
+            container.up()
         }
 
         @AfterClass
         @JvmStatic
         fun cleanup() {
-//            container.kill()
-//            container.rm()
+            container.kill()
+            container.rm()
         }
     }
 }

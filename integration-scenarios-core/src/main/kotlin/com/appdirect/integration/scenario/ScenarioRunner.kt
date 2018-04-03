@@ -1,4 +1,4 @@
-package com.appdirect.integration.mock
+package com.appdirect.integration.scenario
 
 import com.appdirect.web.client.RestResource
 

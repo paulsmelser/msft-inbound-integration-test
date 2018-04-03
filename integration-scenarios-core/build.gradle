@@ -1,0 +1,5 @@
+dependencies {
+	compile (
+			[group: 'com.appdirect',	name: 'jackson-json',	version: '0.1.0-SNAPSHOT']
+	)
+}
