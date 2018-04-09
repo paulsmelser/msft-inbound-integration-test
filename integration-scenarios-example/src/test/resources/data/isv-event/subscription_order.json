@@ -2,7 +2,7 @@
   "type": "SUBSCRIPTION_ORDER",
   "marketplace": {
 	"partner": "APPDIRECT",
-	"baseUrl": "http://localhost:8899"
+	"baseUrl": "http://docker.for.mac.localhost:8899"
   },
   "applicationUuid": null,
   "flag": null,

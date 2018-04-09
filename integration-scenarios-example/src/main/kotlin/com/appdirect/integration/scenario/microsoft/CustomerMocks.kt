@@ -8,7 +8,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.givenThat
 import com.github.tomakehurst.wiremock.client.WireMock.urlMatching
 import org.springframework.social.partnercenter.api.customer.Customer
 
-object Customers {
+object CustomerMocks {
 
     fun mockGetCustomer(customerId: String) {
         val customer = parseFile("data/customers/customer.json").getJsonAsObject<Customer>()

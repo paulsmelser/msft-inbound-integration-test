@@ -7,7 +7,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
 import com.github.tomakehurst.wiremock.client.WireMock.urlMatching
 
-object Users {
+object UserMocks {
 
     fun mockCreateUser(tenantId: String) {
         givenThat(post(urlEqualTo("/v1/customers/$tenantId/users"))

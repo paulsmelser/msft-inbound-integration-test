@@ -1,7 +1,7 @@
 version: '3'
 services:
   msft-inbound-connector:
-    image: docker.appdirect.tools/microsoft/msft-inbound-connector:latest
+    image: docker.appdirect.tools/microsoft/msft-inbound-connector:PR-166
     ports:
       - "8888:8888"
     depends_on:

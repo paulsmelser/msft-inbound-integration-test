@@ -2,9 +2,6 @@ package com.appdirect.integration
 
 import com.appdirect.integration.scenarios.Subscription
 import com.appdirect.integration.scenarios.SubscriptionOrderHappyPathScenario
-import com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor
-import com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
-import com.github.tomakehurst.wiremock.client.WireMock.verify
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration.options
 import com.github.tomakehurst.wiremock.junit.WireMockRule
 import com.meltwater.docker.compose.DockerCompose
@@ -26,10 +23,10 @@ class TestSomething {
         SubscriptionOrderHappyPathScenario(
                 8888,
                 {
-                    verify(postRequestedFor(urlEqualTo("/v1/customers/${it.payload.customerId}/orders")))
+//                    verify(postRequestedFor(urlEqualTo("/v1/customers/${it.payload.customerId}/orders")))
                     it.restResource.request()
                             .path("api/v1/subscriptions")
-                            .queryParam("subscriptionUUID", "84a03d81-6b37-4d66-8d4a-faea24541538")
+                            .queryParam("subscriptionUUID", it.payload.subscriptionId)
                             .get(object : ParameterizedTypeReference<Subscription>() {})
                 }).execute()
     }
@@ -41,7 +38,7 @@ class TestSomething {
         @BeforeClass
         @JvmStatic
         fun init() {
-            container = DockerCompose("docker-compose.yml", "msft", HashMap())
+            container = DockerCompose(getDockerFile(), "msft", HashMap())
             container.build()
             container.up()
         }
@@ -51,6 +48,13 @@ class TestSomething {
         fun cleanup() {
             container.kill()
             container.rm()
+        }
+
+        @JvmStatic
+        private fun getDockerFile() : String {
+            val dockerEnv = if (System.getenv("DOCKER_HOST_OS").isNullOrEmpty()) "osx" else System.getenv("DOCKER_HOST_OS")
+            println("using $dockerEnv docker host environment")
+            return if (dockerEnv == "osx") "docker-compose-osx.yml" else "docker-compose-linux.yml"
         }
     }
 }
