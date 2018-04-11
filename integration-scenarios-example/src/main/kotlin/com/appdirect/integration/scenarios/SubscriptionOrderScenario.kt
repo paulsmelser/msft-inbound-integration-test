@@ -12,7 +12,6 @@ import com.appdirect.integration.scenario.mocks.microsoft.SubscriptionMocks.getS
 import com.appdirect.integration.scenario.mocks.microsoft.UserMocks.mockAssignUser
 import com.appdirect.integration.scenario.mocks.microsoft.UserMocks.mockCreateUser
 import org.springframework.core.ParameterizedTypeReference
-import org.springframework.social.partnercenter.api.order.offer.Offer
 
 open class SubscriptionOrderScenario(connectorPort: Int,
                                      validate: (scenario: Scenario<ScenarioContext>) -> Unit = {},
@@ -36,9 +35,9 @@ open class SubscriptionOrderScenario(connectorPort: Int,
     }
 
     override fun setupTestData(scenario: Scenario<ScenarioContext>) {
-//        restResource.request()
-//                .path("api/v1/offers")
-//                .post(Resource.parseFile("data/offer/e1.json").getJsonAsObject<Offer>(), Offer::class.java)
+        restResource.request()
+                .path("api/v1/offers")
+                .post(Resource.parseFile("data/offer/E1.json").getJsonAsObject<OfferWS>(), OfferWS::class.java)
     }
 
     override fun onExecute(scenario: Scenario<ScenarioContext>) {

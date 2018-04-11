@@ -15,13 +15,14 @@ abstract class Scenario<T>(val restResource: RestResource,
 
     fun execute() {
         val preconditionStart = System.currentTimeMillis()
+        setupTestData(this)
+
         while(!preconditions(this)) {
             Thread.sleep(3000)
             if ((System.currentTimeMillis() - preconditionStart) > timeout) throw TimeoutException()
         }
 
         setupMocks(this)
-        setupTestData(this)
 
         onExecute(this)
 

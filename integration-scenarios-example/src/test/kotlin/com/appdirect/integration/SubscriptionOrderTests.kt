@@ -13,7 +13,7 @@ import org.junit.Test
 import org.springframework.core.ParameterizedTypeReference
 
 
-class TestSomething {
+class SubscriptionOrderTests {
     @Rule
     fun wireMockRule(): WireMockRule = wireMockRule
 
@@ -38,16 +38,16 @@ class TestSomething {
         @BeforeClass
         @JvmStatic
         fun init() {
-            container = DockerCompose(getDockerFile(), "msft", HashMap())
-            container.build()
-            container.up()
+//            container = DockerCompose(getDockerFile(), "msft", HashMap())
+//            container.build()
+//            container.up()
         }
 
         @AfterClass
         @JvmStatic
         fun cleanup() {
-            container.kill()
-            container.rm()
+//            container.kill()
+//            container.rm()
         }
 
         @JvmStatic

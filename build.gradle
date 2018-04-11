@@ -2,10 +2,16 @@ buildscript {
     ext.kotlin_version = '1.2.30'
 
     repositories {
-        mavenCentral()
+		jcenter()
+		maven {
+			url "https://plugins.gradle.org/m2/"
+		}
+		mavenLocal()
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+		classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
+		classpath "org.jetbrains.kotlin:kotlin-noarg:$kotlin_version"
     }
 }
 
@@ -37,8 +43,10 @@ subprojects {
 				[group: "com.github.tomakehurst",				name: "wiremock",								version: "2.4.1"],
 				[group: "io.github.springsocialmicrosoft",		name: "spring-social-microsoft-partnercenter",	version: "6.2.3"],
 				[group: 'org.springframework.security.oauth', 	name: 'spring-security-oauth', 					version: '2.2.1.RELEASE'],
-				[group: "com.fasterxml.jackson.datatype",		name: "jackson-datatype-jsr310",				version: "2.9.4"],
+				[group: "com.fasterxml.jackson.core",			name: "jackson-core",							version: "2.9.4"],
 				[group: "com.fasterxml.jackson.core",			name: "jackson-databind", 						version: "2.9.4"],
+				[group: "com.fasterxml.jackson.core",			name: "jackson-annotations",					version: "2.9.4"],
+				[group: "com.fasterxml.jackson.datatype",		name: "jackson-datatype-jsr310",				version: "2.9.4"],
 				[group: 'org.springframework', 					name: 'spring-web', 							version: '4.3.8.RELEASE'],
 				[group: 'org.apache.activemq.tooling', 			name: 'activemq-junit', 						version: '5.15.3'],
 				[group: 'com.fasterxml.jackson.dataformat',		name: 'jackson-dataformat-yaml',				version: '2.9.4'],
