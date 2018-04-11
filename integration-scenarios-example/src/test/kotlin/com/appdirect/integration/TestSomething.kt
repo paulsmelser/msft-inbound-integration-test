@@ -1,7 +1,8 @@
 package com.appdirect.integration
 
+import com.appdirect.integration.scenario.TestRun
 import com.appdirect.integration.scenarios.Subscription
-import com.appdirect.integration.scenarios.SubscriptionOrderHappyPathScenario
+import com.appdirect.integration.scenarios.SubscriptionOrderScenario
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration.options
 import com.github.tomakehurst.wiremock.junit.WireMockRule
 import com.meltwater.docker.compose.DockerCompose
@@ -20,15 +21,14 @@ class TestSomething {
 
     @Test
     fun `When subscription order is placed for a new company then subscription then subscription is purchase and saved successfully`() {
-        SubscriptionOrderHappyPathScenario(
+        TestRun.startWith(SubscriptionOrderScenario(
                 8888,
                 {
-//                    verify(postRequestedFor(urlEqualTo("/v1/customers/${it.payload.customerId}/orders")))
                     it.restResource.request()
                             .path("api/v1/subscriptions")
-                            .queryParam("subscriptionUUID", it.payload.subscriptionId)
+                            .queryParam("subscriptionUUID", it.context.subscriptionId)
                             .get(object : ParameterizedTypeReference<Subscription>() {})
-                }).execute()
+                })).execute()
     }
 
     companion object {
@@ -51,9 +51,8 @@ class TestSomething {
         }
 
         @JvmStatic
-        private fun getDockerFile() : String {
+        private fun getDockerFile(): String {
             val dockerEnv = if (System.getenv("DOCKER_HOST_OS").isNullOrEmpty()) "osx" else System.getenv("DOCKER_HOST_OS")
-            println("using $dockerEnv docker host environment")
             return if (dockerEnv == "osx") "docker-compose-osx.yml" else "docker-compose-linux.yml"
         }
     }

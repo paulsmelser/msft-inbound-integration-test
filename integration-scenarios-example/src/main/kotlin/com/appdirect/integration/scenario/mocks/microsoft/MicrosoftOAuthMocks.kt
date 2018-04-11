@@ -1,4 +1,4 @@
-package com.appdirect.integration.scenario.microsoft
+package com.appdirect.integration.scenario.mocks.microsoft
 
 import com.appdirect.integration.file.Resource.Companion.parseFile
 import com.github.tomakehurst.wiremock.client.WireMock.aResponse

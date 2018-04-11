@@ -1,6 +1,7 @@
-package com.appdirect.integration.scenario.microsoft
+package com.appdirect.integration.scenario.mocks.microsoft
 
 import com.appdirect.integration.file.Resource.Companion.parseFile
+import com.appdirect.integration.scenario.ScenarioContext
 import com.appdirect.jackson.json.Json
 import com.github.tomakehurst.wiremock.client.WireMock.aResponse
 import com.github.tomakehurst.wiremock.client.WireMock.get
@@ -10,9 +11,9 @@ import com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
 import org.springframework.social.partnercenter.api.order.Order
 
 object OrderMocks {
-    fun mockOrderCreationWithSuccessfulProvisioning(tenantId: String, orderId: String, subscriptionId: String) {
-        mockPlaceOrder(tenantId, orderId, subscriptionId)
-        mockProvisioningStatus(tenantId, subscriptionId)
+    fun mockOrderCreationWithSuccessfulProvisioning(scenarioContext: ScenarioContext) {
+        mockPlaceOrder(scenarioContext.customerId, scenarioContext.orderId, scenarioContext.subscriptionId)
+        mockProvisioningStatus(scenarioContext.customerId, scenarioContext.subscriptionId)
     }
     fun mockPlaceOrder(tenantId: String, orderId: String, subscriptionId: String){
         val order = parseFile("data/order/create.json").getJsonAsObject<Order>()

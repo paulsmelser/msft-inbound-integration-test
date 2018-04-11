@@ -14,15 +14,18 @@ import java.io.PrintStream
 import java.util.Scanner
 
 class Resource : Closeable {
-
+    private val filePath: String
     private var reader: BufferedReader? = null
-    private var scan: Scanner? = null
+    private lateinit var scan: Scanner
 
     val text: String
         get() {
+            if (!scan.hasNext()) {
+                initialize(filePath)
+            }
             val content = StringBuilder()
-            while (scan!!.hasNext()) {
-                content.append(scan!!.next())
+            while (scan.hasNext()) {
+                content.append(scan.next())
             }
             return content.toString()
         }
@@ -30,7 +33,7 @@ class Resource : Closeable {
     val flattenedText: String?
         get() {
             val content = StringBuilder()
-            while (scan!!.hasNext()) {
+            while (scan.hasNext()) {
                 content.append(scan!!.next())
             }
 
@@ -40,20 +43,26 @@ class Resource : Closeable {
 
     @Throws(IOException::class)
     constructor(filePath: String) {
+        this.filePath = filePath
+        initialize(filePath)
+    }
+
+    private fun initialize(filePath: String) {
         val f = Resource::class.java.classLoader.getResource(filePath)
         reader = BufferedReader(
                 InputStreamReader(f!!.openStream()))
         scan = Scanner(reader!!)
-        scan!!.useDelimiter("\\r\\n")
+        scan.useDelimiter("\\r\\n")
     }
 
     @Throws(IOException::class)
     constructor(filePath: String, delimiter: String) {
+        this.filePath = filePath
         val f = Resource::class.java.classLoader.getResource(filePath)
         reader = BufferedReader(
                 InputStreamReader(f!!.openStream()))
         scan = Scanner(reader!!)
-        scan!!.useDelimiter(delimiter)
+        scan.useDelimiter(delimiter)
     }
 
     inline fun <reified T> getJsonAsObject(): T {
