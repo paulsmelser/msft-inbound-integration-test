@@ -1,4 +1,4 @@
 rootProject.name = 'integration-scenarios'
 include 'integration-scenarios-core'
-include 'integration-scenarios-example'
+include 'integration-scenarios-msft'
 
