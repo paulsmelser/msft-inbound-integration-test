@@ -1,16 +1,14 @@
 package com.appdirect.integration.file
 
 
-import com.appdirect.jackson.json.Json
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
+import com.psmelser.jackson.json.Json
 import java.io.BufferedReader
 import java.io.Closeable
 import java.io.File
-import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStreamReader
-import java.io.PrintStream
 import java.util.Scanner
 
 class Resource : Closeable {

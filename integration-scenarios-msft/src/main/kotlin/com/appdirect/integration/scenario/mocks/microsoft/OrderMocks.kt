@@ -2,7 +2,7 @@ package com.appdirect.integration.scenario.mocks.microsoft
 
 import com.appdirect.integration.file.Resource.Companion.parseFile
 import com.appdirect.integration.scenario.ScenarioContext
-import com.appdirect.jackson.json.Json
+import com.psmelser.jackson.json.Json
 import com.github.tomakehurst.wiremock.client.WireMock.aResponse
 import com.github.tomakehurst.wiremock.client.WireMock.get
 import com.github.tomakehurst.wiremock.client.WireMock.givenThat
