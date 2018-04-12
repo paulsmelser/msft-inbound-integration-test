@@ -1,4 +1,4 @@
-package com.appdirect.integration.scenarios
+package com.appdirect.integration.scenarios.messagecontracts
 
 import java.math.BigDecimal
 import kotlin.collections.ArrayList

@@ -11,6 +11,8 @@ import com.appdirect.integration.scenario.mocks.microsoft.OrderMocks.mockOrderCr
 import com.appdirect.integration.scenario.mocks.microsoft.SubscriptionMocks.getSubscriptionMock
 import com.appdirect.integration.scenario.mocks.microsoft.UserMocks.mockAssignUser
 import com.appdirect.integration.scenario.mocks.microsoft.UserMocks.mockCreateUser
+import com.appdirect.integration.scenarios.messagecontracts.ISVEvent
+import com.appdirect.integration.scenarios.messagecontracts.OfferWS
 import org.springframework.core.ParameterizedTypeReference
 
 open class SubscriptionOrderScenario(connectorPort: Int,

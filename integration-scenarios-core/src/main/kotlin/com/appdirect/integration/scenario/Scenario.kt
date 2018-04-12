@@ -3,7 +3,7 @@ package com.appdirect.integration.scenario
 import com.appdirect.web.client.RestResource
 import java.util.concurrent.TimeoutException
 
-abstract class Scenario<T>(val restResource: RestResource,
+abstract class Scenario<T>(var restResource: RestResource,
                            private val validation: (scenario: Scenario<T>) -> Unit,
                            private val timeout: Long = 60000) {
     lateinit var context: ScenarioContext
@@ -13,11 +13,24 @@ abstract class Scenario<T>(val restResource: RestResource,
     abstract fun preconditions(scenario: Scenario<T>): Boolean
     abstract fun executionComplete(scenario: Scenario<T>): Boolean
 
+    fun ready(): Boolean {
+        return try {
+            restResource.request()
+                    .path("/info")
+                    .get(String::class.java)
+            true
+        } catch (e: RuntimeException) {
+            false
+        }
+    }
+
     fun execute() {
         val preconditionStart = System.currentTimeMillis()
-        setupTestData(this)
+        if (ready() && !preconditions(this)) {
+            setupTestData(this)
+        }
 
-        while(!preconditions(this)) {
+        while (!preconditions(this)) {
             Thread.sleep(3000)
             if ((System.currentTimeMillis() - preconditionStart) > timeout) throw TimeoutException()
         }
@@ -27,7 +40,7 @@ abstract class Scenario<T>(val restResource: RestResource,
         onExecute(this)
 
         val startTime = System.currentTimeMillis()
-        while(!executionComplete(this)) {
+        while (!executionComplete(this)) {
             Thread.sleep(3000)
             if ((System.currentTimeMillis() - startTime) > timeout) throw TimeoutException()
         }

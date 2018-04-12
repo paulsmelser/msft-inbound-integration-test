@@ -1,4 +1,4 @@
-package com.appdirect.integration.scenarios
+package com.appdirect.integration.scenarios.messagecontracts
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode

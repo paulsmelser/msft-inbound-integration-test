@@ -48,6 +48,7 @@ subprojects {
 				[group: "com.fasterxml.jackson.core",			name: "jackson-annotations",					version: "2.9.4"],
 				[group: "com.fasterxml.jackson.datatype",		name: "jackson-datatype-jsr310",				version: "2.9.4"],
 				[group: 'org.springframework', 					name: 'spring-web', 							version: '4.3.8.RELEASE'],
+				[group: 'commons-io', 							name: 'commons-io', 							version: '2.4'],
 				[group: 'org.apache.activemq.tooling', 			name: 'activemq-junit', 						version: '5.15.3'],
 				[group: 'com.fasterxml.jackson.dataformat',		name: 'jackson-dataformat-yaml',				version: '2.9.4'],
 				[group: 'com.jayway.jsonpath',					name: 'json-path',								version: '2.3.0']
@@ -62,7 +63,6 @@ subprojects {
 				[ group: 'org.assertj', 					name: 'assertj-core', 			version: '3.6.2'],
 				[ group: 'ch.qos.logback', 					name: 'logback-classic', 		version: '1.1.8'],
 				[ group: 'org.mockito',						name: 'mockito-core',			version: '2.7.22'],
-				[ group: 'commons-io', 						name: 'commons-io', 			version: '2.4'],
 				[ group: 'com.meltwater.docker',			name: 'kotlin-compose',			version: '1.2.1']
 		)
 	}
