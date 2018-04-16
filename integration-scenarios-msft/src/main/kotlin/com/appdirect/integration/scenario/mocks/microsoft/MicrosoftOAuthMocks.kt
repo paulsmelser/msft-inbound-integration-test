@@ -8,6 +8,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
 import com.github.tomakehurst.wiremock.client.WireMock.urlMatching
 import com.github.tomakehurst.wiremock.http.HttpHeader.httpHeader
 import com.github.tomakehurst.wiremock.http.HttpHeaders
+import java.util.UUID
 
 object MicrosoftOAuthMocks {
     fun mockMicrosoftOAuthEndpoints() {
@@ -20,7 +21,7 @@ object MicrosoftOAuthMocks {
                         .withHeaders(HttpHeaders(
                                 httpHeader("Content-Type", "application/json;charset=utf-8"),
                                 httpHeader("X-Content-Type-Options", "nosniff"),
-                                httpHeader("x-ms-request-id", "8ba32044-4bef-46a7-8505-f22c8e0c2200")
+                                httpHeader("x-ms-request-id", UUID.randomUUID().toString())
                         ))
                         .withBody(parseFile("data/oauth/token.json").flattenedText)))
     }

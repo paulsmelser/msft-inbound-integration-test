@@ -2,7 +2,7 @@ package com.appdirect.integration.scenario.mocks
 
 import com.appdirect.integration.file.Resource.Companion.parseFile
 import com.appdirect.integration.scenario.ScenarioContext
-import com.psmelser.jackson.json.Json.toJson
+import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.github.tomakehurst.wiremock.client.WireMock.aResponse
 import com.github.tomakehurst.wiremock.client.WireMock.get
@@ -10,6 +10,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.givenThat
 import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
 import com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo
+import com.psmelser.jackson.json.Json.toJson
 import org.apache.http.HttpHeaders
 import org.apache.http.entity.ContentType
 
@@ -30,7 +31,7 @@ object ISVEventMocks {
         val customerId = scenarioContext.customerId
         val companyId = scenarioContext.companyId
         val customerDomain = scenarioContext.customerDomain
-        val event = parseFile("data/isv-event/subscription_order.json")
+        val event = parseFile("data/isv-event/subscription_change.json")
                 .getAsObjectNode()
                 .put("id", eventToken)
 
@@ -38,8 +39,11 @@ object ISVEventMocks {
         configuration.put("MICROSOFT_MIGRATE_TENANT_ID", customerId)
         configuration.put("MICROSOFT_MIGRATE_TENANT_DOMAIN_KEY", customerDomain)
 
-        val orderItem = event.path("payload").path("order").path("items[0]") as ObjectNode
-        orderItem.put("quantity", 3)
+        (event.path("payload").path("account") as ObjectNode)
+                .put("accountIdentifier", scenarioContext.subscriptionAccountIdentifier)
+
+        val orderItem = event.path("payload").path("order").path("items") as ArrayNode
+        (orderItem[0] as ObjectNode).put("quantity", scenarioContext.qty)
 
         (event.path("payload").path("company") as ObjectNode).put("uuid", companyId)
 

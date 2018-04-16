@@ -10,4 +10,5 @@ data class ScenarioContext(
         val customerId: String = UUID.randomUUID().toString(),
         val orderId: String = UUID.randomUUID().toString(),
         val subscriptionId: String = UUID.randomUUID().toString(),
-        val eventToken: String = UUID.randomUUID().toString())
+        val eventToken: String = UUID.randomUUID().toString(),
+        var subscriptionAccountIdentifier: String? = null)
